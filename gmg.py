@@ -105,7 +105,7 @@ def initialize_once(app):
             "SELECT count(*) FROM pg_catalog.pg_tables WHERE tablename = 'app_web_config'"
         ).first()[0])
         if not has_base_tables:
-            cli.install()
+            install()
 
         # APScheduler
         scheduler.init_app(app)
@@ -151,7 +151,6 @@ def create_app(gmgconf):
     cors.init_app(app, origins=app.config['ALLOWED_ORIGINS'])
     csrf.init_app(app)
     compress.init_app(app)
-    spacy_nlp.init_app(app)
 
     # Ensure app timezone
     db_user = db_get_active_user()
@@ -159,6 +158,8 @@ def create_app(gmgconf):
     db.session.execute("SET TIME ZONE 'UTC'")
 
     initialize_once(app)
+
+    spacy_nlp.init_app(app)
 
     @babel.localeselector
     def get_locale():

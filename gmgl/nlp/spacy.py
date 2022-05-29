@@ -1,5 +1,6 @@
 # GMG Copyright 2022 - Alexandre Díaz
 import spacy
+from spacy_download import load_spacy
 from flask import current_app, _app_ctx_stack
 
 
@@ -13,11 +14,7 @@ class SpacyNLP(object):
 
     def init_app(self, app):
         with app.app_context():
-            try:
-                self._pipe = spacy.load(self._model_name)
-            except OSError as error:
-                spacy.cli.download(self._model_name)
-                self._pipe = spacy.load(self._model_name)
+            self._pipe = load_spacy(self._model_name)
 
     def analyze_text(self, data):
         doc = self.pipe(data)
