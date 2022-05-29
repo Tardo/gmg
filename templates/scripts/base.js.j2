@@ -1,0 +1,8 @@
+"use strict";
+
+const REQ_INFO = {
+    hostname: new URL(window.location.href).hostname,
+    session: {{ session_filtered|tojson }},
+    csrftoken: document.querySelector('meta[name=csrf-token]').getAttribute('content'),
+};
+Object.freeze(REQ_INFO);

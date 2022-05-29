@@ -1,0 +1,62 @@
+{% macro progressbar(id, perc, extraClasses) -%}
+<div id="{{id}}" class="w-full h-4 bg-gray-200 dark:bg-gray-400 rounded-full {{extraClasses}}">
+	<div class="bg-gray-600 h-4 text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full w-0"></div>
+</div>
+{%- endmacro -%}
+
+{% macro progressbarText(id, perc, extraClasses) -%}
+<div id="{{id}}" class="w-full bg-gray-200 dark:bg-gray-400 rounded-full {{extraClasses}}">
+	<div class="bg-gray-600 text-xs font-medium text-gray-100 text-center p-0.5 leading-none rounded-full w-0"> {{perc}}%</div>
+</div>
+{%- endmacro -%}
+
+{% macro usercard(active_site_id, user_data, title, avatar_hash_ref=None, lazy=False) -%}
+<a href="/users/{{user_data.name}}" title="{{title}}">
+	<div class="bg-white dark:bg-slate-600 border border-gray-200 dark:border-gray-900 hover:drop-shadow-md hover:bg-primary dark:hover:bg-slate-700 cursor-pointer transition-all duration-800 hover:-translate-y-1">
+		<div class="flex flex-col items-center">
+		{% if lazy %}
+			<img class="mb-3 mt-2 w-24 h-24 rounded-full shadow-lg lazy" data-lazy-src="/bin/avatar/{{avatar_hash_ref or '0'}}" src="/bin/avatar/lazy" alt="{{user_data.name}} avatar"/>
+		{% else %}
+			<img class="mb-3 mt-2 w-24 h-24 rounded-full shadow-lg" src="/bin/avatar/{{avatar_hash_ref or '0'}}" alt="{{user_data.name}} avatar"/>
+		{% endif %}
+			<h3 class="mb-1 text-md font-medium text-gray-900 dark:text-gray-100">{{user_data.name}}</h3>
+		</div>
+	</div>
+</a>
+{%- endmacro -%}
+
+{% macro userminicard(active_site_id, user_data, title, avatar_hash_ref=None, lazy=False) -%}
+<a href="/users/{{user_data.name}}" title="{{title}}">
+	<div class="bg-white dark:bg-slate-600 border border-gray-200 dark:border-gray-900 hover:drop-shadow-md hover:bg-primary dark:hover:bg-slate-700 cursor-pointer transition-all duration-800 hover:-translate-y-1">
+		<div class="flex flex-row items-center">
+		{% if lazy %}
+			<img class="m-1 w-8 h-8 rounded-full shadow-lg lazy" data-lazy-src="/bin/avatar/{{avatar_hash_ref or '0'}}" src="/bin/avatar/lazy" alt="{{user_data.name}} avatar"/>
+		{% else %}
+			<img class="m-1 w-8 h-8 rounded-full shadow-lg" src="/bin/avatar/{{avatar_hash_ref or '0'}}" alt="{{user_data.name}} avatar"/>
+		{% endif %}
+			<h3 class="mb-1 text-md font-medium text-gray-900 dark:text-gray-100">{{user_data.name}}</h3>
+		</div>
+	</div>
+</a>
+{%- endmacro -%}
+
+{% macro youtubecard(youtube_id, post_url, multimedia_data) -%}
+<div class="grid gap-1 bg-white dark:bg-slate-600 border border-gray-200 dark:border-gray-900 p-2">
+	<div class="relative lazy cursor-pointer dark:border-gray-900" title="{{_('Click to load')}}" data-create-tag="iframe" data-lazy-width="380" data-lazy-height="285" data-lazy-src="{{ 'https://www.youtube.com/embed/{}'.format(youtube_id) }}" data-lazy-title="Youtube video player" data-lazy-frameborder="0" data-lazy-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" data-lazy-allowfullscreen="1">
+		<img alt="Youtube Thumbnail" width="380" height="285" class="thumbnail" src="https://img.youtube.com/vi/{{youtube_id}}/hqdefault.jpg" />
+		<svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 absolute-centered text-red-700" viewBox="0 0 20 20" fill="currentColor">
+			<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+		</svg>
+	</div>
+	<div><span>{{ _('{} votes').format(multimedia_data.votes) }}</span> <span class="float-right"><a href="{{post_url}}">{{ _('post') }}</a> - <a href=/users/{{multimedia_data.author_name}}>{{multimedia_data.author_name}}</a></span></div>
+</div>
+{%- endmacro %}
+
+{% macro imagecard(image_url, post_url, multimedia_data) -%}
+<div class="flex flex-col bg-white dark:bg-slate-600 border border-gray-200 dark:border-gray-900 p-2">
+	<div class="relative cursor-pointer grow">
+		<img alt="{{ _('Shared image by {}').format(multimedia_data.author_name) }}" width="380" height="285" class="thumbnail" src="{{image_url}}" />
+	</div>
+	<div class="grow-0"><span>{{ _('{} votes').format(multimedia_data.votes) }}</span> <span class="float-right"><a href="{{post_url}}">{{ _('post') }}</a> - <a href=/users/{{multimedia_data.author_name}}>{{multimedia_data.author_name}}</a></span></div>
+</div>
+{%- endmacro %}

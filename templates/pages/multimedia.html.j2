@@ -1,0 +1,128 @@
+{% from 'macros/components.html.j2' import youtubecard, imagecard %}
+{% extends "minimal_layout.html.j2" %}
+{% set navbar = True %}
+{% block title %}{{ _('Multimedia') }}{% endblock %}
+{% block content %}
+{{ super() }}
+
+<div class="flex flex-col h-100 items-center pb-4">
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl mt-4 grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('Youtube') }}
+			</h3>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+			<dl>
+				<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 sm:grid sm:gap-4 sm:px-6">
+					<p class="text-sm font-medium text-gray-500 dark:text-gray-100">{{ _('Top 10 current week') }}</p>
+					<div class="grid grid-rows-1 grid-flow-col gap-2 overflow-x-scroll py-2" data-component="lazyClick" data-component-option-cookie_origins='["youtube"]'>
+					{% for data in top10_week_youtube %}
+						{% set youtube_id = data.url.replace('https://www.youtube.com/watch?v=', '') %}
+						{% set post_url = get_post_url(data.thread_url, data.ref_id) %}
+						{{ youtubecard(youtube_id, post_url, data) }}
+					{% endfor %}
+					</div>
+				</div>
+				<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 sm:grid sm:gap-4 sm:px-6">
+					<p class="text-sm font-medium text-gray-500 dark:text-gray-100">{{ _('Last 5 shared') }}</p>
+					<div class="grid grid-rows-1 grid-flow-col gap-2 overflow-x-scroll py-2" data-component="lazyClick" data-component-option-cookie_origins='["youtube"]'>
+					{% for data in last_youtube %}
+						{% set youtube_id = data.url.replace('https://www.youtube.com/watch?v=', '') %}
+						{% set post_url = get_post_url(data.thread_url, data.ref_id) %}
+						{{ youtubecard(youtube_id, post_url, data) }}
+					{% endfor %}
+					</div>
+				</div>
+			</dl>
+		</div>
+	</div>
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('Twitter') }}
+			</h3>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+			<dl>
+				<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 sm:grid sm:gap-4 sm:px-6">
+					<p class="text-sm font-medium text-gray-500 dark:text-gray-100">{{ _('Top 10 current week') }}</p>
+					<div class="grid grid-cols-1 gap-4">
+					{% for data in top10_week_twitter %}
+						<span><a href="{{g.active_site.url}}{{data.url}}">{{g.active_site.url}}{{data.url}}</a> - {{ _('{} votes').format(data.votes) }} - <a href="{{get_post_url(data.thread_url, data.ref_id)}}">{{ _('post') }}</a> - <a href=/users/{{data.author_name}}>{{data.author_name}}</a></span>
+					{% endfor %}
+					</div>
+				</div>
+				<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 sm:grid sm:gap-4 sm:px-6">
+					<p class="text-sm font-medium text-gray-500 dark:text-gray-100">{{ _('Last 5 shared') }}</p>
+					<div class="grid grid-cols-1 gap-4">
+					{% for data in last_twitter %}
+						<span><a href="{{g.active_site.url}}{{data.url}}">{{g.active_site.url}}{{data.url}}</a> - {{ _('{} votes').format(data.votes) }} - <a href="{{get_post_url(data.thread_url, data.ref_id)}}">{{ _('post') }}</a> - <a href=/users/{{data.author_name}}>{{data.author_name}}</a></span>
+					{% endfor %}
+					</div>
+				</div>
+			</dl>
+		</div>
+	</div>
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('Images') }}
+			</h3>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+			<dl>
+				<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 sm:grid sm:gap-4 sm:px-6">
+					<p class="text-sm font-medium text-gray-500 dark:text-gray-100">{{ _('Top 10 current week') }}</p>
+					<div class="grid grid-rows-1 grid-flow-col gap-2 overflow-x-scroll py-2">
+					{% for data in top10_week_image %}
+						{% set post_url = get_post_url(data.thread_url, data.ref_id) %}
+						{{ imagecard(data.url, post_url, data) }}
+					{% endfor %}
+					</div>
+				</div>
+				<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 sm:grid sm:gap-4 sm:px-6">
+					<p class="text-sm font-medium text-gray-500 dark:text-gray-100">{{ _('Last 5 shared') }}</p>
+					<div class="grid grid-rows-1 grid-flow-col gap-2 overflow-x-scroll py-2">
+					{% for data in last_image %}
+					    {% set post_url = get_post_url(data.thread_url, data.ref_id) %}
+						{{ imagecard(data.url, post_url, data) }}
+					{% endfor %}
+					</div>
+				</div>
+			</dl>
+		</div>
+	</div>
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('Soundcloud') }}
+			</h3>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+			<dl>
+				<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 sm:grid sm:gap-4 sm:px-6">
+					<p class="text-sm font-medium text-gray-500 dark:text-gray-100">{{ _('Top 10 current week') }}</p>
+					<div class="grid grid-cols-1 gap-4">
+					{% for data in top10_week_soundcloud %}
+						<span><a href="{{data.url}}">{{data.url}}</a> - {{ _('{} votes').format(data.votes) }} - <a href="{{get_post_url(data.thread_url, data.ref_id)}}">{{ _('post') }}</a> - <a href=/users/{{data.author_name}}>{{data.author_name}}</a></span>
+					{% endfor %}
+					</div>
+				</div>
+				<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 sm:grid sm:gap-4 sm:px-6">
+					<p class="text-sm font-medium text-gray-500 dark:text-gray-100">{{ _('Last 5 shared') }}</p>
+					<div class="grid grid-cols-1 gap-4">
+					{% for data in last_soundcloud %}
+						<span><a href="{{data.url}}">{{data.url}}</a> - {{ _('{} votes').format(data.votes) }} - <a href="{{get_post_url(data.thread_url, data.ref_id)}}">{{ _('post') }}</a> - <a href=/users/{{data.author_name}}>{{data.author_name}}</a></span>
+					{% endfor %}
+					</div>
+				</div>
+			</dl>
+		</div>
+	</div>
+</div>
+{% endblock %}

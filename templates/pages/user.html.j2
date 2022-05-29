@@ -1,0 +1,131 @@
+{% from 'macros/components.html.j2' import userminicard %}
+{% extends "minimal_layout.html.j2" %}
+{% set navbar = True %}
+{% block title %}{{ _('User details') }}{% endblock %}
+{% block content %}
+{{ super() }}
+
+<div class="flex flex-col h-100 items-center pb-4">
+
+	{% if user %}
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl sm:mt-6 grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ user.name }}
+			</h3>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+			<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 sm:px-6 relative overflow-hidden">
+				{% if user.banned %}
+					<span class="text-xl font-bold text-white absolute text-center -right-12 top-6 rotate-45 bg-danger py-3 w-48">{{_('BANNED')}}</span>
+				{% elif user.deleted %}
+					<span class="text-xl font-bold text-white absolute text-center -right-12 top-6 rotate-45 bg-warning py-3 w-48">{{_('DELETED')}}</span>
+				{% endif %}
+				<div class="flex flex-row w-100 gap-3">
+					<div>
+						<img class="mb-3 mt-2 w-24 h-24 rounded-md shadow-lg" src="/bin/avatar/{{user.avatar_ids[-1].hash_ref if user.avatar_ids else '0'}}" alt="{{user.name}} avatar"/>
+					</div>
+					<div class="flex flex-row w-full">
+						<div class="grow pt-2">
+							{% set month_stats = user.getMonthStatus() %}
+							{% set max_month = month_stats.values()|max %}
+							<p>{{ _('First seen: {}').format(date_to_str(first_post.date, hours=True, babel=True) if first_post else _('Undefined')) }}</p>
+							<p>{{ _('Last seen: {}').format(date_to_str(last_post.date, hours=True, babel=True) if last_post else _('Undefined')) }}</p>
+							<p>{{ _('Stats (this month):') }}</p>
+							<ul class="ml-8">
+								{% for stat_name in month_stats.keys() %}
+									{% set stats = month_stats[stat_name] %}
+									{% if max_month == stats %}
+										<li><b>{{_(stat_name)}}</b>: {{stats}}%</li>
+									{% else %}
+										<li>{{_(stat_name)}}: {{stats}}%</li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+							<p>{{ _('Total posts tracked: {}').format(post_count) }}</p>
+						</div>
+						{% if g.active_site.ref == 'mediavida' and user.name == 'Dresler' %}
+						<div class="ml-auto hidden md:inline" data-component="lazyClick" data-component-option-cookie_origins='["streamable"]'>
+							<div class="relative lazy cursor-pointer thumbnail-fixed" title="{{_('Click to load')}}" data-create-tag="iframe" data-lazy-width="100%" data-lazy-height="100%" data-lazy-src="https://streamable.com/e/7vossl" data-lazy-title="Streamable video player" data-lazy-frameborder="0" data-lazy-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" data-lazy-allowfullscreen="1">
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 absolute-centered" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+									<path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+								</svg>
+							</div>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('Activity last 7 days') }}
+			</h3>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+			<canvas id="userActivity7d_graph" height="200" width="600" data-component="userActivity7dChart" data-component-option-user_id="{{user.id}}"></canvas>
+		</div>
+	</div>
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('Threads Commented ({})').format(post_threads|length) }}
+			</h3>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100 max-h-64 overflow-y-auto overflow-x-hidden">
+			<div class="bg-gray-50 dark:bg-slate-700 grid grid-cols-1">
+				{% for data in post_threads %}
+					<div class="flex flex-row odd:bg-white dark:odd:bg-slate-600 even:bg-slate-100 dark:even:bg-slate-700 p-1 hover:bg-blue-100">
+						<a class="grow" href="{{get_post_url(data.url, data.last_post_ref_id)}}">{{data.title}}</a> <span class="grow-0 text-right pl-2 hidden sm:inline">{{ _('{} comments').format(data.count_posts) }}</span> <span class="grow-0 text-right w-28 pl-2 hidden md:inline">{{ data.category }}</span>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	{% include "includes/web_events.html.j2" %}
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('Interactions ({})').format(interactions|length) }}
+			</h3>
+			<p class="mt-1 text-sm text-gray-500 dark:text-gray-100">
+				{{ _('Current month. Ordered from most interaction to least') }}
+			</p>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100 max-h-96 overflow-y-auto" data-component="lazyScroll">
+			<div class="bg-gray-50 dark:bg-slate-700 px-2 py-3 grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-2 sm:px-6">
+				{% for data in interactions %}
+					{{ userminicard(g.active_site.id, data, _("Interactions: {}").format(data.count), avatar_hash_ref=data.avatar_hash_ref, lazy=True) }}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('Word cloud') }}
+			</h3>
+			<p class="mt-1 text-sm text-gray-500 dark:text-gray-100">
+				{{ _('Most used words in the current month. Without numbers, prepositions, pronouns, articles, some adverbs, some conjunctions and some contractions') }}
+			</p>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+			<canvas id="userWordCount_graph" height="400" width="600" data-component="userWordCountChart" data-component-option-user_id="{{user.id}}"></canvas>
+		</div>
+	</div>
+	{% else %}
+		<div class="alert alert-info border-info text-info bg-info">
+			<span>{{ _('This user does not exist or no information is available in the system. Try again another day...') }}</span>
+		</div>
+	{% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+<gmg>
+    <record model="site" id="base_site_mediavida" import_group="base">
+        <field name="ref">mediavida</field>
+        <field name="name">MediaVida</field>
+        <field name="url">https://www.mediavida.com</field>
+        <field name="post_per_page">30</field>
+    </record>
+
+    <record model="media_type" id="base_media_type_link" import_group="base">
+        <field name="short_name">link</field>
+        <field name="name">Links</field>
+    </record>
+    <record model="media_type" id="base_media_type_youtube" import_group="base">
+        <field name="short_name">youtube</field>
+        <field name="name">YouTube</field>
+    </record>
+    <record model="media_type" id="base_media_type_soundcloud" import_group="base">
+        <field name="short_name">soundcloud</field>
+        <field name="name">SoundCloud</field>
+    </record>
+    <record model="media_type" id="base_media_type_twitter" import_group="base">
+        <field name="short_name">twitter</field>
+        <field name="name">Twitter</field>
+    </record>
+    <record model="media_type" id="base_media_type_image" import_group="base">
+        <field name="short_name">image</field>
+        <field name="name">Image</field>
+    </record>
+
+    <record model="web_event_type" id="base_web_event_type_online_users" import_group="base">
+        <field name="short_name">online_users</field>
+        <field name="name">Online Users</field>
+    </record>
+    <record model="web_event_type" id="base_web_event_type_post_reply" import_group="base">
+        <field name="short_name">post_reply</field>
+        <field name="name">Post Reply</field>
+    </record>
+    <record model="web_event_type" id="base_web_event_type_post_mention" import_group="base">
+        <field name="short_name">post_mention</field>
+        <field name="name">Post Mention</field>
+    </record>
+    <record model="web_event_type" id="base_web_event_type_user_avatar_change" import_group="base">
+        <field name="short_name">user_avatar_change</field>
+        <field name="name">User Avatar Change</field>
+    </record>
+    <record model="web_event_type" id="base_web_event_type_user_banned" import_group="base">
+        <field name="short_name">user_banned</field>
+        <field name="name">User Banned</field>
+    </record>
+    <record model="web_event_type" id="base_web_event_type_user_deleted" import_group="base">
+        <field name="short_name">user_deleted</field>
+        <field name="name">User Deleted</field>
+    </record>
+    <record model="web_event_type" id="base_web_event_type_hot_post" import_group="base">
+        <field name="short_name">hot_post</field>
+        <field name="name">Hot Post</field>
+    </record>
+</gmg>

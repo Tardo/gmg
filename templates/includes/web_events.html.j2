@@ -1,0 +1,50 @@
+<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl grow-0 hover:drop-shadow-xl">
+    <div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+        <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+            {{ _('Events ({})').format(web_events|length) }}
+        </h3>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-100">
+            {{ _('Showing the last 1000 events') }}
+        </p>
+    </div>
+    <div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100 max-h-64 bg-gray-50 dark:bg-slate-700 overflow-y-auto overflow-x-hidden" data-component="lazyScroll">
+        <div class="grid grid-cols-1 odd:bg-white dark:odd:bg-slate-600 even:bg-slate-100 dark:even:bg-slate-700 hover:bg-blue-100">
+            <div class="flex flex-row bg-gray-200 dark:bg-slate-800 sticky top-0">
+                <span class="grow-0 w-32 p-1"><strong>{{_('Date')}}</strong></span>
+                <span class="grow-0 w-44 p-1"><strong>{{_('Action')}}</strong></span>
+                <span class="grow p-1"><strong>{{_('Detail')}}</strong></span>
+            </div>
+        {% for event in web_events %}
+            {% if event.web_event_type.short_name == 'online_users' %}
+                {% set message = _("<strong>{}</strong> active users").format(event.user_count) %}
+            {% elif event.web_event_type.short_name == 'post_reply' %}
+                {% set message = _("<a href='/users/{0}'><strong>{0}</strong></a> replied to a message from <strong>{1}</strong> in '{2}'").format(event.origin_post.author.name, event.post.author.name, event.origin_post.thread.title) %}
+            {% elif event.web_event_type.short_name == 'post_mention' %}
+                {% set message = _("<a href='/users/{0}'><strong>{0}</strong></a> mentioned <a href='/users/{1}'><strong>{1}</strong></a> in '{2}'").format(event.origin_post.author.name, event.user.name, event.origin_post.thread.title) %}
+            {% elif event.web_event_type.short_name == 'user_avatar_change' %}
+                {% set message = _("<a href='/users/{0}'><strong>{0}</strong></a> has changed his avatar <img class='m-1 w-8 h-8 rounded-full shadow-lg inline-block lazy' data-lazy-src='/bin/avatar/{1}' src='/bin/avatar/lazy' alt='{0} avatar'/> to <img class='m-1 w-8 h-8 rounded-full shadow-lg inline-block lazy' data-lazy-src='/bin/avatar/{2}' src='/bin/avatar/lazy' alt='{0} avatar'/>").format(
+                    event.user.name,
+                    event.old_avatar.hash_ref if event.old_avatar else '0',
+                    event.new_avatar.hash_ref if event.new_avatar else '0') %}
+            {% elif event.web_event_type.short_name == 'user_banned' %}
+                {% if event.applied %}
+                    {% set message = _("<a href='/users/{0}'><strong>{0}</strong></a> has been banned").format(event.user.name) %}
+                {% else %}
+                    {% set message = _("<a href='/users/{0}'><strong>{0}</strong></a> has been unbanned").format(event.user.name) %}
+                {% endif %}
+            {% elif event.web_event_type.short_name == 'user_deleted' %}
+                {% if event.applied %}
+                    {% set message = _("<a href='/users/{0}'><strong>{0}</strong></a> has been deleted").format(event.user.name) %}
+                {% else %}
+                    {% set message = _("<a href='/users/{0}'><strong>{0}</strong></a> has been undeleted").format(event.user.name) %}
+                {% endif %}
+            {% elif event.web_event_type.short_name == 'hot_post' %}
+                {% set message = _("'{0}' it is getting a lot of attention. <strong>{1}</strong> new messages since the last revision.").format(event.thread.title, event.diff_count) %}
+            {% endif %}
+            <div class="flex flex-row odd:bg-white dark:odd:bg-slate-600 even:bg-slate-100 dark:even:bg-slate-700 p-1 hover:bg-blue-100">
+                <span class="grow-0 w-32">{{date_to_str(event.create_date, hours=True, babel=True)}}</span><span class="grow-0 w-44">{{event.web_event_type.name}}</span><span class="grow">{{message}}</span>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>

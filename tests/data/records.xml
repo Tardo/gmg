@@ -1,0 +1,209 @@
+<gmg>
+    <record model="site" id="base_site_test" import_group="base">
+        <field name="ref">testsite</field>
+        <field name="name">TheTestSite</field>
+        <field name="url">https://www.example.com</field>
+        <field name="post_per_page">45</field>
+    </record>
+
+    <record model="analyzer_user" id="test_user_page_user" import_group="test_user_page">
+        <field name="site_id" ref="base_site_test"/>
+        <field name="name">TestUser</field>
+        <field name="ct_text">The Test</field>
+    </record>
+    <record model="analyzer_user" id="test_user_page_user_banned" import_group="test_user_page">
+        <field name="site_id" ref="base_site_test"/>
+        <field name="name">TestUserBanned</field>
+        <field name="ct_text">The Test Banned</field>
+        <field name="banned" eval="True"/>
+    </record>
+    <record model="analyzer_user" id="test_user_page_user_deleted" import_group="test_user_page">
+        <field name="site_id" ref="base_site_test"/>
+        <field name="name">TestUserDeleted</field>
+        <field name="ct_text">The Test Deleted</field>
+        <field name="deleted" eval="True"/>
+    </record>
+    <record model="analyzer_user" id="test_user_page_user_admin" import_group="test_user_page">
+        <field name="site_id" ref="base_site_test"/>
+        <field name="name">TestUserAdmin</field>
+        <field name="ct_text">The Test Admin</field>
+        <field name="admin" eval="True"/>
+    </record>
+
+    <record model="analyzer_user" id="test_user_search" import_group="test_search">
+        <field name="site_id" ref="base_site_test"/>
+        <field name="name">TestUserSearch</field>
+        <field name="ct_text">The Test Search</field>
+    </record>
+    <record model="analyzer_thread_category" id="test_thread_category_search" import_group="test_search">
+        <field name="site_id" ref="base_site_test"/>
+        <field name="short_name">test_category</field>
+        <field name="name">The Test Category</field>
+    </record>
+    <record model="analyzer_thread" id="test_thread_search" import_group="test_search">
+        <field name="site_id" ref="base_site_test"/>
+        <field name="category_id" ref="test_thread_category_search"/>
+        <field name="subcategory_id" eval="1" />
+        <field name="title">The Test Thread</field>
+        <field name="author_id" ref="test_user_search" />
+        <field name="date" eval="datetime.utcnow()" />
+        <field name="url">/example</field>
+        <field name="last_page_done" eval="0" />
+    </record>
+
+    <record model="attachment" id="test_attachment_bin_avatar" import_group="test_bin_avatar">
+        <field name="data" eval="b'This is an avatar test... yes as text :D'"/>
+        <field name="mimetype">image/png</field>
+    </record>
+
+    <record model="media_type" id="test_media_type_chart_data" import_group="test_chart_data">
+        <field name="short_name">mediatypetest</field>
+        <field name="name">Media Type Test</field>
+    </record>
+    <record model="analyzer_user" id="test_user_chart_data_a" import_group="test_chart_data">
+        <field name="site_id" ref="base_site_test"/>
+        <field name="name">TestUserChartA</field>
+    </record>
+    <record model="analyzer_user" id="test_user_chart_data_b" import_group="test_chart_data">
+        <field name="site_id" ref="base_site_test"/>
+        <field name="name">TestUserChartB</field>
+    </record>
+    <record model="analyzer_thread_category" id="test_thread_category_chart_data_a" import_group="test_chart_data">
+        <field name="site_id" ref="base_site_test"/>
+        <field name="short_name">test_category_chart</field>
+        <field name="name">The Test Category Chart</field>
+    </record>
+    <record model="analyzer_thread" id="test_thread_chart_data_a" import_group="test_chart_data">
+        <field name="site_id" ref="base_site_test"/>
+        <field name="category_id" ref="test_thread_category_chart_data_a"/>
+        <field name="subcategory_id" eval="1" />
+        <field name="title">The Test Thread Chart A</field>
+        <field name="author_id" ref="test_user_chart_data_a" />
+        <field name="date" eval="datetime.utcnow() - timedelta(days=4)" />
+        <field name="url">/example</field>
+        <field name="last_page_done" eval="0" />
+    </record>
+    <record model="analyzer_post" id="test_post_chart_data_a" import_group="test_chart_data">
+        <field name="site_id" ref="base_site_test"/>
+        <field name="thread_id" ref="test_thread_chart_data_a"/>
+        <field name="author_id" ref="test_user_chart_data_a" />
+        <field name="date" eval="datetime.utcnow()" />
+        <field name="votes_good_count" eval="0" />
+    </record>
+    <record model="analyzer_post" id="test_post_chart_data_b" import_group="test_chart_data">
+        <field name="site_id" ref="base_site_test"/>
+        <field name="thread_id" ref="test_thread_chart_data_a"/>
+        <field name="author_id" ref="test_user_chart_data_b" />
+        <field name="date" eval="datetime.utcnow() - timedelta(days=1)" />
+        <field name="votes_good_count" eval="3" />
+    </record>
+    <record model="analyzer_post" id="test_post_chart_data_c" import_group="test_chart_data">
+        <field name="site_id" ref="base_site_test"/>
+        <field name="thread_id" ref="test_thread_chart_data_a"/>
+        <field name="author_id" ref="test_user_chart_data_b" />
+        <field name="date" eval="(datetime.utcnow() - timedelta(hours=23)).replace(minute=0)" />
+        <field name="votes_good_count" eval="1" />
+    </record>
+    <record model="analyzer_post_comment" id="test_post_comment_chart_data_a" import_group="test_chart_data">
+        <field name="post_id" ref="test_post_chart_data_a"/>
+        <field name="date" eval="datetime.utcnow()" />
+        <field name="content">This is a test comment</field>
+        <field name="content_clean">This is a test comment</field>
+    </record>
+    <record model="analyzer_post_comment" id="test_post_comment_chart_data_b" import_group="test_chart_data">
+        <field name="post_id" ref="test_post_chart_data_b"/>
+        <field name="date" eval="datetime.utcnow() - timedelta(days=1)" />
+        <field name="content">This is another test comment</field>
+        <field name="content_clean">This is another test comment</field>
+    </record>
+    <record model="analyzer_post_comment" id="test_post_comment_chart_data_c_a" import_group="test_chart_data">
+        <field name="post_id" ref="test_post_chart_data_c"/>
+        <field name="date" eval="(datetime.utcnow() - timedelta(hours=23)).replace(minute=0)" />
+        <field name="content">Pim pam pum toma lacasitos</field>
+        <field name="content_clean">Pim pam pum toma lacasitos</field>
+    </record>
+    <record model="analyzer_post_comment" id="test_post_comment_chart_data_c_b" import_group="test_chart_data">
+        <field name="post_id" ref="test_post_chart_data_c"/>
+        <field name="date" eval="(datetime.utcnow() - timedelta(hours=23)).replace(minute=0)" />
+        <field name="content">Pim pam pum toma lacasitos</field>
+        <field name="content_clean">Pim pam pum toma lacasitos</field>
+    </record>
+    <record model="analyzer_post_stat" id="test_post_stat_chart_data_a" import_group="test_chart_data">
+        <field name="post_id" ref="test_post_chart_data_a"/>
+        <field name="mention_user_ids" eval="[ref('test_user_chart_data_b')]" />
+        <field name="insult_word_count" eval="12" />
+        <field name="swear_word_count" eval="0" />
+        <field name="good_word_count" eval="10" />
+        <field name="love_word_count" eval="1" />
+        <field name="laugh_word_count" eval="4" />
+        <field name="sad_word_count" eval="0" />
+        <field name="dead_word_count" eval="0" />
+        <field name="sex_word_count" eval="2" />
+        <field name="word_count" eval="40" />
+    </record>
+    <record model="analyzer_post_stat" id="test_post_stat_chart_data_b" import_group="test_chart_data">
+        <field name="post_id" ref="test_post_chart_data_b"/>
+        <field name="mention_post_ids" eval="[ref('test_post_chart_data_a')]" />
+        <field name="insult_word_count" eval="0" />
+        <field name="swear_word_count" eval="0" />
+        <field name="good_word_count" eval="5" />
+        <field name="love_word_count" eval="3" />
+        <field name="laugh_word_count" eval="2" />
+        <field name="sad_word_count" eval="0" />
+        <field name="dead_word_count" eval="0" />
+        <field name="sex_word_count" eval="0" />
+        <field name="word_count" eval="20" />
+    </record>
+    <record model="analyzer_post_stat" id="test_post_stat_chart_data_c" import_group="test_chart_data">
+        <field name="post_id" ref="test_post_chart_data_c"/>
+        <field name="insult_word_count" eval="0" />
+        <field name="swear_word_count" eval="0" />
+        <field name="good_word_count" eval="0" />
+        <field name="love_word_count" eval="0" />
+        <field name="laugh_word_count" eval="0" />
+        <field name="sad_word_count" eval="0" />
+        <field name="dead_word_count" eval="0" />
+        <field name="sex_word_count" eval="0" />
+        <field name="word_count" eval="18" />
+    </record>
+    <record model="analyzer_post" id="test_post_chart_data_a" import_group="test_chart_data">
+        <field name="comment_ids" eval="[ref('test_post_comment_chart_data_a')]" />
+    </record>
+    <record model="analyzer_post" id="test_post_chart_data_b" import_group="test_chart_data">
+        <field name="comment_ids" eval="[ref('test_post_comment_chart_data_b')]" />
+    </record>
+    <record model="analyzer_post" id="test_post_chart_data_c" import_group="test_chart_data">
+        <field name="comment_ids" eval="[ref('test_post_comment_chart_data_c_a'), ref('test_post_comment_chart_data_c_b')]" />
+    </record>
+    <record model="analyzer_post_media" id="test_post_media_chart_data_a" import_group="test_chart_data">
+        <field name="media_type_id" ref="base_media_type_youtube" />
+        <field name="post_id" ref="test_post_chart_data_a" />
+        <field name="post_stat_id" ref="test_post_stat_chart_data_a" />
+        <field name="url">https://youtube.com/test</field>
+    </record>
+    <record model="analyzer_post_media" id="test_post_media_chart_data_b" import_group="test_chart_data">
+        <field name="media_type_id" ref="base_media_type_youtube" />
+        <field name="post_id" ref="test_post_chart_data_b" />
+        <field name="post_stat_id" ref="test_post_stat_chart_data_b" />
+        <field name="url">https://youtube.com/testb</field>
+    </record>
+
+    <record model="analyzer_user" id="test_analyzer_user_admin" import_group="test_analyzer_user">
+        <field name="site_id" ref="base_site_test" />
+        <field name="name">TestAnalyzerUserModerator</field>
+        <field name="admin" eval="1" />
+        <field name="last_seen_admin_date" eval="(datetime.utcnow() - timedelta(days=2)).replace(hour=0, minute=0, second=0)" />
+    </record>
+    <record model="analyzer_user" id="test_analyzer_user_banned" import_group="test_analyzer_user">
+        <field name="site_id" ref="base_site_test" />
+        <field name="name">TestAnalyzerUserBanned</field>
+        <field name="banned" eval="1" />
+        <field name="last_seen_admin_date" eval="(datetime.utcnow() - timedelta(days=2)).replace(hour=0, minute=0, second=0)" />
+    </record>
+    <record model="analyzer_user" id="test_analyzer_user_deleted" import_group="test_analyzer_user">
+        <field name="site_id" ref="base_site_test" />
+        <field name="name">TestAnalyzerUserDeleted</field>
+        <field name="deleted" eval="1" />
+        <field name="last_seen_admin_date" eval="(datetime.utcnow() - timedelta(days=2)).replace(hour=0, minute=0, second=0)" />
+    </record>
+</gmg>

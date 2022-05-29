@@ -1,0 +1,83 @@
+<nav class="bg-gray-800 dark:bg-stone-900" data-component="navbar">
+  <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+    <div class="relative flex items-center justify-between h-10">
+      <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+        <!-- Mobile menu button-->
+        <button type="button" data-toggle="#mobile-menu" class="dropdown inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+          <span class="sr-only">{{_("Open main menu")}}</span>
+          <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+        <div class="flex-shrink-0 flex items-center">
+          <img class="hidden lg:block h-8 w-auto" src="/static/img/logo.svg" alt="Give Me the Garbage" width=32 height=32 title="Give Me the Garbage - Since 2022" >
+        </div>
+        <div class="hidden sm:block sm:ml-6">
+          <div class="flex space-x-4">
+            <a href="/" class="{% if request.path == '/' %}menu-item-active dark:bg-gray-600{% else %}menu-item{% endif %}" aria-current="page">{{_("Dashboard")}}</a>
+            <a href="/reports" class="{% if request.path.startswith('/reports') %}menu-item-active dark:bg-gray-600{% else %}menu-item{% endif %}">{{_("Reports")}}</a>
+            <a href="/multimedia" class="{% if request.path.startswith('/multimedia') %}menu-item-active dark:bg-gray-600{% else %}menu-item{% endif %}">{{_("Multimedia")}}</a>
+            <a href="/users" class="{% if request.path.startswith('/users') %}menu-item-active dark:bg-gray-600{% else %}menu-item{% endif %}">{{_("Users")}}</a>
+            <a href="/search" class="{% if request.path.startswith('/search') %}menu-item-active dark:bg-gray-600{% else %}menu-item{% endif %}">{{_("Search")}}</a>
+            {% if session['is_admin'] %}
+            <a href="/nlp_demo" class="{% if request.path.startswith('/nlp_demo') %}menu-item-active dark:bg-gray-600{% else %}menu-item{% endif %}">{{_("NLP Demo")}}</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+        <div class="flex justify-center mt-1">
+          <div class="form-switch">
+            <input class="form-check-input appearance-none w-9 -ml-10 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm" type="checkbox" role="switch" id="flexSwitchCheckDarkTheme" {{ 'checked' if not session['dark_theme'] else '' }}>
+            <label class="form-check-label inline-block text-gray-300" for="flexSwitchCheckDarkTheme">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
+            </svg>
+            </label>
+          </div>
+        </div>
+        <div class="ml-3 relative">
+          <span type="button" class="menu-item-text" id="user-menu-tz" aria-expanded="false" aria-haspopup="true">
+            {% set session_time=get_session_time() %}
+            <i class="fa fa-clock-o"></i> <b><span id="localtime">{{session_time['localtime']}}</span></b> <span id="localzone">{{session_time['localzone']}}</span>
+          </span>
+        </div>
+
+        {% if session.logged_in %}
+          <!-- Profile dropdown -->
+          <div class="ml-3 relative">
+            <div>
+              <button type="button" class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white dropdown" data-toggle="#user-menu-button-dropdown" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                <span class="sr-only">{{_("Open user menu")}}</span>
+                <img class="h-8 w-8 rounded-full" src="static/img/default_avatar.png" alt="">
+              </button>
+            </div>
+            <div class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" id="user-menu-button-dropdown" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">{{_("Settings")}}</a>
+              <a href="/logout" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">{{_("Sign out")}}</a>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu, show/hide based on menu state. -->
+  <div class="hidden fixed bg-gray-800 dark:bg-stone-900 w-full z-30" id="mobile-menu">
+    <div class="px-2 pt-2 pb-3 space-y-1">
+      <a href="/" class="block {% if request.path == '/' %}menu-item-active dark:bg-gray-600{% else %}menu-item{% endif %}" aria-current="page">{{_("Dashboard")}}</a>
+      <a href="/reports" class="block {% if request.path.startswith('/reports') %}menu-item-active dark:bg-gray-600{% else %}menu-item{% endif %}">{{_("Reports")}}</a>
+      <a href="/multimedia" class="block {% if request.path.startswith('/multimedia') %}menu-item-active dark:bg-gray-600{% else %}menu-item{% endif %}">{{_("Multimedia")}}</a>
+      <a href="/users" class="block {% if request.path.startswith('/users') %}menu-item-active dark:bg-gray-600{% else %}menu-item{% endif %}">{{_("Users")}}</a>
+      <a href="/search" class="block {% if request.path.startswith('/search') %}menu-item-active dark:bg-gray-600{% else %}menu-item{% endif %}">{{_("Search")}}</a>
+      {% if session['is_admin'] %}
+      <a href="/nlp_demo" class="block {% if request.path.startswith('/nlp_demo') %}menu-item-active dark:bg-gray-600{% else %}menu-item{% endif %}">{{_("NLP Demo")}}</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>

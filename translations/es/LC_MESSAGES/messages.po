@@ -1,0 +1,533 @@
+# Spanish translations for GMG.
+# Copyright (C) 2015 ORGANIZATION
+# This file is distributed under the same license as the GMG project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: GMG v0.1.0\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-05-14 05:00+0200\n"
+"PO-Revision-Date: 2022-05-14 04:22+0200\n"
+"Last-Translator: Alexandre Díaz <dev@redneboa.es>\n"
+"Language: es\n"
+"Language-Team: <dev@redneboa.es>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.1\n"
+
+#: gmgl/nlp/knowledge.py:27
+msgid "Toxic"
+msgstr "Tóxico"
+
+#: gmgl/nlp/knowledge.py:28
+msgid "Rude"
+msgstr "Maleducado"
+
+#: gmgl/nlp/knowledge.py:29
+msgid "Comfortable"
+msgstr "Confortable"
+
+#: gmgl/nlp/knowledge.py:30
+msgid "In love"
+msgstr "Amoroso/a"
+
+#: gmgl/nlp/knowledge.py:31
+msgid "Sad"
+msgstr "Triste"
+
+#: gmgl/nlp/knowledge.py:32
+msgid "Suicidal"
+msgstr "Suicida"
+
+#: gmgl/nlp/knowledge.py:33
+msgid "Horny"
+msgstr "Calentorro/a"
+
+#: gmgl/sqlalchemy/models/__init__.py:33
+msgid "Unknown {} model!"
+msgstr ""
+
+#: gmgl/utils.py:78
+msgid "Error in the '{0}' field - {1}"
+msgstr "Error en el campo '{0}' - {1}"
+
+#: static/js/base/app.js:140
+msgid "Can't found the '${component_name}' component!"
+msgstr "No se puede encontrar el componente '${component_name}'!"
+
+#: static/js/base/components/chart.js:60
+msgid "Can't render the graph. No config or data given!"
+msgstr "No se puede renderizar la gráfica. Sin configurar o sin datos!"
+
+#: static/js/base/components/modal.js:43
+msgid "Ok"
+msgstr "Aceptar"
+
+#: static/js/components/common.js:159
+msgid "at"
+msgstr "arroba"
+
+#: static/js/components/common.js:172
+msgid "The following cookies will be created:"
+msgstr "Las siguientes cookies serán creadas:"
+
+#: static/js/components/common.js:173
+msgid "Name"
+msgstr "Nombre"
+
+#: static/js/components/common.js:174
+msgid "Description"
+msgstr "Descripción"
+
+#: static/js/components/common.js:187
+msgid "Cookie Management"
+msgstr "Gestión de Cookies"
+
+#: static/js/components/common.js:202
+msgid "Cancel"
+msgstr "Cancelar"
+
+# | msgid "Disk usage:"
+#: static/js/components/overview.js:45
+msgid "In use:"
+msgstr "En Uso:"
+
+#: static/js/components/overview.js:48
+msgid "Cache:"
+msgstr ""
+
+#: static/js/components/overview.js:66
+msgid "Used:"
+msgstr "Usado:"
+
+#: static/js/components/overview.js:74
+msgid "Uptime:"
+msgstr "Encendido:"
+
+#: static/js/components/overview.js:76
+msgid "day(s)"
+msgstr "día(s)"
+
+#: static/js/components/overview.js:96 static/js/components/overview.js:189
+#: static/js/components/user.js:22
+msgid "Posts"
+msgstr "Mensajes"
+
+#: static/js/components/overview.js:102 static/js/components/overview.js:195
+#: templates/includes/nav.html.j2:25 templates/includes/nav.html.j2:76
+#: templates/pages/search.html.j2:4 templates/pages/users.html.j2:4
+msgid "Users"
+msgstr "Usuarios"
+
+#: static/js/components/overview.js:108 static/js/components/overview.js:201
+#: static/js/components/user.js:34
+msgid "Mentions"
+msgstr "Menciones"
+
+#: static/js/components/overview.js:114 static/js/components/overview.js:207
+#: static/js/components/user.js:40
+msgid "Replies"
+msgstr "Respuestas"
+
+#: static/js/components/overview.js:120 static/js/components/overview.js:213
+#: static/js/components/user.js:46
+msgid "Medias"
+msgstr ""
+
+#: static/js/components/user.js:28
+msgid "Threads"
+msgstr "Hilos"
+
+#: static/js/components/user.js:122
+msgid "weight"
+msgstr "peso"
+
+#: static/js/services/cookies.js:12
+msgid "Registers a unique ID to store session data"
+msgstr "Registra un ID único para almacenar datos de sesión"
+
+#: static/js/services/cookies.js:17
+msgid ""
+"Used to detect if the visitor has accepted the marketing category in the "
+"cookie banner. This cookie is necessary for GDPR-compliance of the "
+"website."
+msgstr ""
+"Usado para detectar si el visitante tiene aceptada la categoría de "
+"marketing en el banner de cookies. Esta cookie es necesaria para cumplir "
+"con la GDPR del sitio web."
+
+#: static/js/services/cookies.js:20
+msgid ""
+"Tries to estimate the user's bandwidth on pages with integrated YouTube "
+"videos."
+msgstr ""
+"Intenta estimar la banda ancha de los usuarios en páginas que integran "
+"video de YouTube."
+
+#: static/js/services/cookies.js:23
+msgid ""
+"Registers a unique ID to keep statistics of what videos from YouTube the "
+"user has seen."
+msgstr ""
+"Registra un ID único para mantener las estadísticas de que vídeos de "
+"YouTube han sido vistos por el usuario."
+
+#: static/js/services/cookies.js:30
+msgid "Used to remember if the video must be played muted."
+msgstr "Usado para recordar si el video debe reproducirse silenciado."
+
+#: static/js/services/cookies.js:31
+msgid "Used to remember the volume of the video."
+msgstr "Usado para recordar el volumen del video."
+
+#: static/js/services/requests.js:9
+msgid "200: Invalid server result!"
+msgstr ""
+
+#: static/js/services/requests.js:87
+msgid "ACTION NOT ALLOWED"
+msgstr "ACCIÓN NO PERMITIDA"
+
+#: static/js/services/requests.js:88
+msgid "You haven't the permissions for do this action"
+msgstr "No tienes permisos para realizar esta acción"
+
+#: static/js/services/requests.js:103
+msgid "Internal error has ocurred!"
+msgstr "Ha ocurrido un error interno!"
+
+#: static/js/services/requests.js:105
+msgid "Error - Ooops!"
+msgstr ""
+
+#: static/js/services/requests.js:109
+msgid "Damn"
+msgstr "Maldición"
+
+#: templates/includes/nav.html.j2:7
+msgid "Open main menu"
+msgstr "Abrir menú principal"
+
+#: templates/includes/nav.html.j2:22 templates/includes/nav.html.j2:73
+msgid "Dashboard"
+msgstr "Panel"
+
+#: templates/includes/nav.html.j2:23 templates/includes/nav.html.j2:74
+#: templates/pages/reports.html.j2:3
+msgid "Reports"
+msgstr "Informes"
+
+#: templates/includes/nav.html.j2:24 templates/includes/nav.html.j2:75
+#: templates/pages/multimedia.html.j2:4
+msgid "Multimedia"
+msgstr ""
+
+#: templates/includes/nav.html.j2:26 templates/includes/nav.html.j2:77
+#: templates/pages/search.html.j2:15
+msgid "Search"
+msgstr "Buscar"
+
+#: templates/includes/nav.html.j2:28 templates/includes/nav.html.j2:79
+#: templates/pages/nlp_demo.html.j2:4 templates/pages/nlp_demo.html.j2:13
+msgid "NLP Demo"
+msgstr ""
+
+#: templates/includes/nav.html.j2:56
+msgid "Open user menu"
+msgstr "Abrir menú de usuario"
+
+#: templates/includes/nav.html.j2:61
+msgid "Settings"
+msgstr "Configuración"
+
+#: templates/includes/nav.html.j2:62
+msgid "Sign out"
+msgstr "Cerrar sesión"
+
+#: templates/macros/components.html.j2:45 templates/pages/user.html.j2:49
+msgid "Click to load"
+msgstr "Click para cargar"
+
+#: templates/macros/components.html.j2:51
+#: templates/macros/components.html.j2:60 templates/pages/multimedia.html.j2:54
+#: templates/pages/multimedia.html.j2:62 templates/pages/multimedia.html.j2:112
+#: templates/pages/multimedia.html.j2:120
+msgid "{} votes"
+msgstr "{} votos"
+
+#: templates/macros/components.html.j2:51
+#: templates/macros/components.html.j2:60 templates/pages/multimedia.html.j2:54
+#: templates/pages/multimedia.html.j2:62 templates/pages/multimedia.html.j2:112
+#: templates/pages/multimedia.html.j2:120
+msgid "post"
+msgstr "mensaje"
+
+#: templates/macros/components.html.j2:58
+msgid "Shared image by {}"
+msgstr "Imagen compartida por {}"
+
+#: templates/pages/index.html.j2:4
+msgid "Overview"
+msgstr "Resumen"
+
+#: templates/pages/index.html.j2:24
+msgid "CPU usage:"
+msgstr "Uso CPU:"
+
+#: templates/pages/index.html.j2:33
+msgid "Memory usage:"
+msgstr "Uso memoria:"
+
+#: templates/pages/index.html.j2:43
+msgid "Disk usage:"
+msgstr "Uso disco:"
+
+#: templates/pages/index.html.j2:58
+msgid "Status"
+msgstr "Estado"
+
+#: templates/pages/index.html.j2:61
+msgid ""
+"The status can be: Toxic, Rude, Comfortable, Harmony, In love, Horny, "
+"Sad, Suicidal or Undefined"
+msgstr ""
+"El estado puede ser: Tóxico, Maleducado/a, Confortable, Armonía, "
+"Amoroso/a, Triste, Suicida o Indefinido"
+
+#: templates/pages/index.html.j2:68
+msgid "Today:"
+msgstr "Hoy:"
+
+#: templates/pages/index.html.j2:76
+msgid "This week:"
+msgstr "Esta semana:"
+
+#: templates/pages/index.html.j2:84
+msgid "This month:"
+msgstr "Este mes:"
+
+#: templates/pages/index.html.j2:97 templates/pages/user.html.j2:66
+msgid "Activity last 7 days"
+msgstr "Actividad últimos 7 días"
+
+#: templates/pages/index.html.j2:108
+msgid "Activity last 24+1 hours"
+msgstr "Actividad últimas 24+1 horas"
+
+#: templates/pages/login.html.j2:3
+msgid "Sign In"
+msgstr "Iniciar Sesión"
+
+#: templates/pages/multimedia.html.j2:13
+msgid "Youtube"
+msgstr ""
+
+#: templates/pages/multimedia.html.j2:19 templates/pages/multimedia.html.j2:51
+#: templates/pages/multimedia.html.j2:79 templates/pages/multimedia.html.j2:109
+msgid "Top 10 current week"
+msgstr "Top 10 de esta semana"
+
+#: templates/pages/multimedia.html.j2:29 templates/pages/multimedia.html.j2:59
+#: templates/pages/multimedia.html.j2:88 templates/pages/multimedia.html.j2:117
+msgid "Last 5 shared"
+msgstr "Últimos 5 compartidos"
+
+#: templates/pages/multimedia.html.j2:45
+msgid "Twitter"
+msgstr ""
+
+#: templates/pages/multimedia.html.j2:73
+msgid "Images"
+msgstr "Imágenes"
+
+#: templates/pages/multimedia.html.j2:103
+msgid "Soundcloud"
+msgstr ""
+
+#: templates/pages/nlp_demo.html.j2:22
+msgid "Analyze"
+msgstr ""
+
+#: templates/pages/reports.html.j2:12
+msgid "General"
+msgstr ""
+
+#: templates/pages/reports.html.j2:16
+msgid "Users tracked: {}"
+msgstr "Usuarios rastreados: {}"
+
+#: templates/pages/reports.html.j2:17
+msgid "Threads tracked: {}"
+msgstr "Hilos rastreados: {}"
+
+#: templates/pages/reports.html.j2:18
+msgid "Posts tracked: {}"
+msgstr "Mensajes rastreados: {}"
+
+#: templates/pages/reports.html.j2:19
+msgid "Multimedias tracked: {}"
+msgstr "Multimedias rastreados: {}"
+
+#: templates/pages/reports.html.j2:26
+msgid "Last week report"
+msgstr "Informe semana pasada"
+
+#: templates/pages/search.html.j2:22
+msgid "No results!"
+msgstr "Sin resultados!"
+
+#: templates/pages/search.html.j2:30
+msgid "Users ({})"
+msgstr "Usuarios ({})"
+
+#: templates/pages/search.html.j2:47
+msgid "Threads ({})"
+msgstr "Hilos ({})"
+
+#: templates/pages/user.html.j2:4
+msgid "User details"
+msgstr "Detalles del usuario"
+
+#: templates/pages/user.html.j2:20
+msgid "BANNED"
+msgstr "BANEADO"
+
+#: templates/pages/user.html.j2:22
+msgid "DELETED"
+msgstr "BORRADO"
+
+#: templates/pages/user.html.j2:32
+msgid "First seen: {}"
+msgstr "Primera vez visto/a: {}"
+
+#: templates/pages/user.html.j2:32 templates/pages/user.html.j2:33
+msgid "Undefined"
+msgstr "Indefinido"
+
+#: templates/pages/user.html.j2:33
+msgid "Last seen: {}"
+msgstr "Última vez visto/a: {}"
+
+#: templates/pages/user.html.j2:34
+msgid "Stats (this month):"
+msgstr "Estadísticas (este mes):"
+
+#: templates/pages/user.html.j2:45
+msgid "Total posts tracked: {}"
+msgstr "Total de mensajes rastreados: {}"
+
+#: templates/pages/user.html.j2:77
+msgid "Threads Commented ({})"
+msgstr "Hilos Comentados ({})"
+
+#: templates/pages/user.html.j2:84
+msgid "{} comments"
+msgstr "{} comentarios"
+
+#: templates/pages/user.html.j2:94
+msgid "Interactions ({})"
+msgstr "Interacciones ({})"
+
+#: templates/pages/user.html.j2:97
+msgid "Current month. Ordered from most interaction to least"
+msgstr "Mes actual. Ordenado de más interacción a menos"
+
+#: templates/pages/user.html.j2:103
+msgid "Interactions: {}"
+msgstr "Interacciones: {}"
+
+#: templates/pages/user.html.j2:112
+msgid "Word cloud"
+msgstr "Nube de palabras"
+
+#: templates/pages/user.html.j2:115
+msgid ""
+"Most used words in the current month. Without numbers, prepositions, "
+"pronouns, articles, some adverbs, some conjunctions and some contractions"
+msgstr ""
+"Palabras más usadas en el mes actual. Sin números, preposiciones, "
+"pronombres, artículos, algunos adverbios, algunas conjunciones y algunas "
+"contracciones"
+
+#: templates/pages/user.html.j2:124
+msgid ""
+"This user does not exist or no information is available in the system. "
+"Try again another day..."
+msgstr ""
+"Este usuario no existe o no se dispone de información en el sistema. "
+"Inténtalo otro día..."
+
+#: templates/pages/users.html.j2:13
+msgid "Most active users"
+msgstr "Usuarios más activos"
+
+#: templates/pages/users.html.j2:16
+msgid "Showing the 9 most active users in this week"
+msgstr "Mostrando los 9 usuarios más activos durante esta semana"
+
+#: templates/pages/users.html.j2:31
+msgid "Moderators"
+msgstr "Moderadores"
+
+#: templates/pages/users.html.j2:34
+msgid "moderators have been tracked in the last week"
+msgstr "moderadores que han sido rastreados en la última semana"
+
+#: templates/pages/users.html.j2:49
+msgid "New users"
+msgstr "Nuevos usuarios"
+
+#: templates/pages/users.html.j2:52
+msgid "Showing the last 9 users tracked"
+msgstr "Mostrando los últimos 9 usuarios rastreados"
+
+#: templates/pages/users.html.j2:67
+msgid "Last Banned Users"
+msgstr "Últimos Usuarios Baneados"
+
+#: templates/pages/users.html.j2:70
+msgid "Showing the last 9 banned users"
+msgstr "Mostrando los últimos 9 usuarios baneados"
+
+#: templates/pages/users.html.j2:85
+msgid "Last Removed Users"
+msgstr "Últimos Usuarios Eliminados"
+
+#: templates/pages/users.html.j2:88
+msgid "Showing the last 9 removed users"
+msgstr "Mostrando los últimos 9 usuarios eliminados"
+
+#: tools/banner_generator.py:90 tools/banner_generator.py:91
+msgid "Yes"
+msgstr "Si"
+
+#: tools/banner_generator.py:90 tools/banner_generator.py:91
+msgid "No"
+msgstr "No"
+
+#: tools/banner_generator.py:96
+msgid "Players"
+msgstr "Jugadores"
+
+#: tools/banner_generator.py:98
+msgid "Map"
+msgstr "Mapa"
+
+#: tools/banner_generator.py:100
+msgid "Game Type"
+msgstr "Tipo de Juego"
+
+#: tools/banner_generator.py:102
+msgid "Public"
+msgstr "Público"
+
+#: tools/banner_generator.py:104
+msgid "Visible"
+msgstr "Visible"
+
+#: tools/banner_generator.py:112
+msgid "SERVER OFFLINE"
+msgstr "SERVIDOR DESCONECTADO"

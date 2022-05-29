@@ -1,0 +1,117 @@
+{% from 'macros/components.html.j2' import progressbar, progressbarText %}
+{% extends "minimal_layout.html.j2" %}
+{% set navbar = True %}
+{% block title %}{{ _('Overview') }}{% endblock %}
+{% block content %}
+{{ super() }}
+
+<div class="flex flex-col h-100 items-center pb-4">
+
+	{% if session.logged_in %}
+		<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl mt-4 grow-0 hover:drop-shadow-xl" data-component="adminStatsPanel">
+			<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+				<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+					<b>{{ dist }}</b> ({{ ip }})
+				</h3>
+				<p class="mt-1 text-sm text-gray-500 dark:text-gray-100">
+					<i class="mr-1"><span id="uptime">&nbsp;</span></i>
+				</p>
+			</div>
+			<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+				<dl>
+					<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+						<dt class="text-sm font-medium text-gray-500 dark:text-gray-100">
+							{{ _('CPU usage:') }}
+						</dt>
+						<dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
+							<span id="cpu-usage">0</span>
+							{{ progressbar('cpu-usage-bar', 0, 'mt-2') }}
+						</dd>
+					</div>
+					<div class="bg-white dark:bg-slate-600 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+						<dt class="text-sm font-medium text-gray-500 dark:text-gray-100">
+							{{ _('Memory usage:') }}
+						</dt>
+						<dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
+							<span id="memory-usage">0</span>
+							{{ progressbarText('memory-usage-bar', 0, 'mt-2') }}
+							{{ progressbarText('memory-cache-usage-bar', 0, 'mt-2') }}
+						</dd>
+					</div>
+					<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+						<dt class="text-sm font-medium text-gray-500 dark:text-gray-100">
+							{{ _('Disk usage:') }}
+						</dt>
+						<dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:mt-0 sm:col-span-2">
+							<span id="disk-usage">0</span>
+							{{ progressbarText('disk-usage-bar', 0, 'mt-2') }}
+						</dd>
+					</div>
+				</dl>
+			</div>
+		</div>
+	{% endif %}
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl mt-9 grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('Status') }}
+			</h3>
+			<p class="mt-1 text-sm text-gray-500 dark:text-gray-100">
+				{{ _('The status can be: Toxic, Rude, Comfortable, Harmony, In love, Horny, Sad, Suicidal or Undefined') }}
+			</p>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+			<dl>
+				<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+					<dt class="text-sm font-medium text-gray-500 dark:text-gray-100">
+						{{ _('Today:') }}
+					</dt>
+					<dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">
+						<span id="forum-status-today">{{site_status['today']}}</span>
+					</dd>
+				</div>
+				<div class="bg-white dark:bg-slate-600 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+					<dt class="text-sm font-medium text-gray-500 dark:text-gray-100">
+						{{ _('This week:') }}
+					</dt>
+					<dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">
+						<span id="forum-status-week">{{site_status['week']}}</span>
+					</dd>
+				</div>
+				<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+					<dt class="text-sm font-medium text-gray-500 dark:text-gray-100">
+						{{ _('This month:') }}
+					</dt>
+					<dd class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">
+						<span id="forum-status-month">{{site_status['month']}}</span>
+					</dd>
+				</div>
+			</dl>
+		</div>
+	</div>
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('Activity last 7 days') }}
+			</h3>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+			<canvas id="activity7d_graph" height="200" width="600" data-component="activity7dChart"></canvas>
+		</div>
+	</div>
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('Activity last 24+1 hours') }}
+			</h3>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+			<canvas id="activity24h_graph" height="250" width="600" data-component="activity24hChart"></canvas>
+		</div>
+	</div>
+
+</div>
+{% endblock %}

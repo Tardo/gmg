@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="number"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="week"],
+  [multiple],
+  textarea,
+  select {
+    @apply rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white ring-0;
+  }
+}
+
+@layer components {
+  .menu-item-active {
+    @apply bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium;
+  }
+  .menu-item {
+    @apply text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium;
+  }
+  .menu-item-text {
+    @apply text-gray-300 px-3 py-2 text-sm font-medium;
+  }
+
+  .button {
+    @apply rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto sm:text-sm;
+  }
+
+  .alert {
+    @apply my-3 text-sm text-left bg-opacity-10 border h-12 flex items-center p-4 rounded-md w-full max-w-7xl shadow-md;
+  }
+
+  .form-switch {
+    padding-left: 2.5em;
+  }
+  .form-switch .form-check-input {
+    margin-top: 0.1rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-4 -4 8 8%22%3E%3Ccircle r=%223%22 fill=%22%23fff%22/%3E%3C/svg%3E");
+    background-position: 0;
+    transition: background-position 0.15s ease-in-out;
+  }
+  .form-switch .form-check-input:checked {
+    background-position: 100%;
+    background-size: initial;
+  }
+
+  .form-check .form-check-input:checked {
+    background-position: 100%;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+  }
+}
+
+@layer utilities {
+  .button-primary {
+    @apply bg-gray-400 hover:bg-gray-200 focus:ring-gray-500 focus:text-gray-600;
+  }
+  .button-danger {
+    @apply bg-red-400 hover:bg-red-200 focus:ring-red-500 focus:text-red-600;
+  }
+  .button-info {
+    @apply bg-blue-400 hover:bg-blue-200 focus:ring-blue-500 focus:text-blue-600;
+  }
+  .button-success {
+    @apply bg-green-400 hover:bg-green-200 focus:ring-green-500 focus:text-green-600;
+  }
+  .button-warning {
+    @apply bg-yellow-400 hover:bg-yellow-200 focus:ring-yellow-500 focus:text-yellow-600;
+  }
+
+  .bg-primary {
+    @apply bg-gray-400;
+  }
+  .bg-danger {
+    @apply bg-red-400;
+  }
+  .bg-info {
+    @apply bg-blue-400;
+  }
+  .bg-success {
+    @apply bg-green-400;
+  }
+  .bg-warning {
+    @apply bg-yellow-400;
+  }
+
+  .border-primary {
+    @apply border-gray-600;
+  }
+  .border-danger {
+    @apply border-red-600;
+  }
+  .border-info {
+    @apply border-blue-600;
+  }
+  .border-success {
+    @apply border-green-600;
+  }
+  .border-warning {
+    @apply border-yellow-600;
+  }
+
+  .text-primary {
+    @apply text-gray-800;
+  }
+  .text-danger {
+    @apply text-red-800;
+  }
+  .text-info {
+    @apply text-blue-800;
+  }
+  .text-success {
+    @apply text-green-800;
+  }
+  .text-warning {
+    @apply text-yellow-800;
+  }
+
+  .lazy {
+    image-rendering: pixelated;
+    @apply border border-gray-200;
+  }
+
+  .thumbnail {
+    max-width: 380px;
+    max-height: 285px;
+  }
+  .thumbnail-fixed {
+    min-width: 380px;
+    min-height: 285px;
+    max-width: 380px;
+    max-height: 285px;
+  }
+
+  .absolute-centered {
+    @apply absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

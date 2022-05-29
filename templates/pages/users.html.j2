@@ -1,0 +1,101 @@
+{% from 'macros/components.html.j2' import usercard %}
+{% extends "minimal_layout.html.j2" %}
+{% set navbar = True %}
+{% block title %}{{ _('Users') }}{% endblock %}
+{% block content %}
+{{ super() }}
+
+<div class="flex flex-col h-100 items-center pb-4">
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl md:mt-6 grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('Most active users') }}
+			</h3>
+			<p class="mt-1 text-sm text-gray-500 dark:text-gray-100">
+				{{ _('Showing the 9 most active users in this week') }}
+			</p>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+			<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-4 sm:px-6">
+				{% for data in most_active_users_post %}
+					{{ usercard(g.active_site.id, data, avatar_hash_ref=data.avatar_hash_ref) }}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('Moderators') }}
+			</h3>
+			<p class="mt-1 text-sm text-gray-500 dark:text-gray-100">
+				{{ moderators|length }} {{ _('moderators have been tracked in the last week') }}
+			</p>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100 max-h-96 overflow-y-auto" data-component="lazyScroll">
+			<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-4 sm:px-6">
+				{% for data in moderators %}
+					{{ usercard(g.active_site.id, data, avatar_hash_ref=data.avatar_ids[-1].hash_ref if data.avatar_ids else '0', lazy=True) }}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('New users') }}
+			</h3>
+			<p class="mt-1 text-sm text-gray-500 dark:text-gray-100">
+				{{ _('Showing the last 9 users tracked') }}
+			</p>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+			<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-4 sm:px-6">
+				{% for data in new_users %}
+					{{ usercard(g.active_site.id, data, avatar_hash_ref=data.avatar_ids[-1].hash_ref if data.avatar_ids else '0') }}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800 dark:text-gray-200">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">
+				{{ _('Last Banned Users') }}
+			</h3>
+			<p class="mt-1 text-sm text-gray-500 dark:text-gray-100">
+				{{ _('Showing the last 9 banned users') }}
+			</p>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+			<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-4 sm:px-6">
+				{% for data in banned %}
+					{{ usercard(g.active_site.id, data, avatar_hash_ref=data.avatar_ids[-1].hash_ref if data.avatar_ids else '0') }}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-white dark:bg-slate-600 shadow overflow-hidden w-full max-w-7xl grow-0 hover:drop-shadow-xl">
+		<div class="px-4 py-5 sm:px-6 bg-gray-200 dark:bg-slate-800">
+			<h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-200">
+				{{ _('Last Removed Users') }}
+			</h3>
+			<p class="mt-1 text-sm text-gray-500 dark:text-gray-100">
+				{{ _('Showing the last 9 removed users') }}
+			</p>
+		</div>
+		<div class="border-t border-gray-200 dark:border-gray-900 dark:text-gray-100">
+			<div class="bg-gray-50 dark:bg-slate-700 px-4 py-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-4 sm:px-6">
+				{% for data in deleted %}
+					{{ usercard(g.active_site.id, data, avatar_hash_ref=data.avatar_ids[-1].hash_ref if data.avatar_ids else '0') }}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+</div>
+{% endblock %}

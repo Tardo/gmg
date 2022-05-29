@@ -1,0 +1,26 @@
+{% extends "minimal_layout.html.j2" %}
+{% set navbar = True %}
+{% block title %}{{ _('Sign In') }}{% endblock %}
+{% block content %}
+{{ super() }}
+
+<div class="flex h-full justify-center items-center">
+	<div class="w-full max-w-2xl">
+		<form role="form" method="post" action="/login" class="bg-white shadow-md rounded px-8 pt-6 pb-8 m-4">
+			{{ login_form.csrf_token }}
+			<div class="mb-4">
+				{{ login_form.username.label }}:
+				{{ login_form.username(size=12,class='w-full outline-0',autofocus='autofocus') }}
+			</div>
+			<div class="mb-4">
+				{{ login_form.password.label }}:
+				{{ login_form.password(size=128,class='w-full outline-0') }}
+			</div>
+			<div class="flex items-center justify-end">
+				{{ login_form.submit(class='button button-primary') }}
+			</div>
+		</form>
+	</div>
+</div>
+
+{% endblock %}
