@@ -101,9 +101,9 @@ def initialize_once(app):
         fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
 
         # Check if need install
-        has_base_tables = db.session.execute(
+        has_base_tables = bool(db.session.execute(
             "SELECT count(*) FROM pg_catalog.pg_tables WHERE tablename = 'app_web_config'"
-        )[0]
+        ).first()[0])
         if not has_base_tables:
             cli.install()
 
