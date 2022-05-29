@@ -4,6 +4,8 @@ from flask import current_app, _app_ctx_stack
 
 
 class SpacyNLP(object):
+    _model_name = 'es_dep_news_trf'
+
     def __init__(self, app=None):
         self.app = app
         if app is not None:
@@ -11,7 +13,11 @@ class SpacyNLP(object):
 
     def init_app(self, app):
         with app.app_context():
-            self._pipe = spacy.load('es_dep_news_trf')
+            try:
+                self._pipe = spacy.load(self._model_name)
+            except OSError as error:
+                spacy.cli.download(self._model_name)
+                self._pipe = spacy.load(self._model_name)
 
     def analyze_text(self, data):
         doc = self.pipe(data)
