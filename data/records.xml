@@ -51,8 +51,8 @@
         <field name="short_name">user_deleted</field>
         <field name="name">User Deleted</field>
     </record>
-    <record model="web_event_type" id="base_web_event_type_hot_post" import_group="base">
-        <field name="short_name">hot_post</field>
-        <field name="name">Hot Post</field>
+    <record model="web_event_type" id="base_web_event_type_hot_thread" import_group="base">
+        <field name="short_name">hot_thread</field>
+        <field name="name">Hot Thread</field>
     </record>
 </gmg>

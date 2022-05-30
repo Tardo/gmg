@@ -38,7 +38,7 @@
                 {% else %}
                     {% set message = _("<a href='/users/{0}'><strong>{0}</strong></a> has been undeleted").format(event.user.name) %}
                 {% endif %}
-            {% elif event.web_event_type.short_name == 'hot_post' %}
+            {% elif event.web_event_type.short_name == 'hot_thread' %}
                 {% set message = _("'{0}' it is getting a lot of attention. <strong>{1}</strong> new messages since the last revision.").format(event.thread.title, event.diff_count) %}
             {% endif %}
             <div class="flex flex-row odd:bg-white dark:odd:bg-slate-600 even:bg-slate-100 dark:even:bg-slate-700 p-1 hover:bg-blue-100">

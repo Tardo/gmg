@@ -707,12 +707,12 @@ class AnalyzerWebEvent(AnalyzerMixin, BaseModel):
             'user_avatar_change': cls._createEventUserAvatarChange,
             'user_banned': cls._createEventUserBanned,
             'user_deleted': cls._createEventUserDeleted,
-            'hot_post': cls._createEventHotThread,
+            'hot_thread': cls._createEventHotThread,
         }
         if event_type in invokes:
             web_event = invokes[event_type](**options)
         else:
-            raise Exception(_('Invalid '))
+            raise Exception(_('Invalid event type'))
         if add and web_event:
             db.session.add(web_event)
         return web_event
