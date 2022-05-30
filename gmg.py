@@ -30,6 +30,7 @@ from tools.banned_list import BannedList
 from gmgl.nlp.spacy import spacy_nlp
 from gmgl.nlp.knowledge import get_analyzer_sections
 from gmgl.json_encoder import GMGJSONEncoder
+from gmgl.sqlalchemy.xml_loader import load_xml_records
 from gmgl.sqlalchemy.database import db, db_get_active_user, db_get_engine_name
 from gmgl.sqlalchemy.models import get_db_env
 from gmgl.sqlalchemy.models.internal import Site
@@ -105,7 +106,11 @@ def initialize_once(app):
             "SELECT count(*) FROM pg_catalog.pg_tables WHERE tablename = 'app_web_config'"
         ).first()[0])
         if not has_base_tables:
-            install()
+            db.create_all()
+            load_xml_records(
+                os.path.join(Path(__file__).resolve().parent, 'data', 'records.xml'),
+                igroup='base',
+            )
 
         # APScheduler
         scheduler.init_app(app)
