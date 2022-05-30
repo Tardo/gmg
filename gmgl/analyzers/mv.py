@@ -319,8 +319,6 @@ class MVAnalyzer(object):
                         )
                 else:
                     avatar_attachment = None
-                if avatar_attachment:
-                    analyzer_user.avatar_ids.append(avatar_attachment)
                 AnalyzerWebEvent.createEvent(
                     'user_avatar_change',
                     {
@@ -334,6 +332,8 @@ class MVAnalyzer(object):
                         else None,
                     },
                 )
+                if avatar_attachment:
+                    analyzer_user.avatar_ids.append(avatar_attachment)
         # Get CT
         ct_element = css_xpath(post, 'div.post-meta span.ct')
         has_ct = len(ct_element) != 0

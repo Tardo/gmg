@@ -1,12 +1,14 @@
 # GMG Copyright 2022 - Alexandre Díaz
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import literal_column
+from sqlalchemy.pool import NullPool
 from sqlalchemy.ext import compiler
 from sqlalchemy.schema import DDLElement
 from flask_sqlalchemy_caching import CachingQuery
 
 # db = SQLAlchemy(session_options={"autoflush": False})
-db = SQLAlchemy(None, query_class=CachingQuery)
+# FIXME: Disabling connection pool as a workaround to get sqlachemy working with gunicorn (multi-process)
+db = SQLAlchemy(None, query_class=CachingQuery, engine_options={'poolclass': NullPool})
 
 
 ####################################
