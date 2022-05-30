@@ -8,6 +8,7 @@ from typing import List, Tuple, Callable, Awaitable, Any
 from lxml import etree
 from flask import current_app
 from sqlalchemy.exc import NoResultFound
+from gmgl.sqlalchemy.models import RecordMetadata
 from gmgl.sqlalchemy.database import db
 from gmgl.sqlalchemy.models.internal import AppWebConfig, Attachment, Site
 from gmgl.sqlalchemy.models.analyzer import (
