@@ -1,4 +1,5 @@
 # GMG Copyright 2022 - Alexandre Díaz
+import logging
 import json
 import base64
 from lxml import etree
@@ -6,6 +7,8 @@ from io import StringIO, BytesIO
 from urllib.request import build_opener, urlopen, Request, HTTPHandler
 from urllib.parse import urlencode
 from urllib.error import URLError, HTTPError
+
+_logger = logging.getLogger(__name__)
 
 
 class Http(object):
@@ -40,7 +43,7 @@ class Http(object):
             req = Request(f'{self._protocol}{self._domain}/{url}', method='GET')
             resp = self._opener.open(req, timeout=30)
         except (URLError, HTTPError) as err:
-            print(err)
+            _logger.error(err)
             return None
         page_etree = etree.parse(
             StringIO(resp.read().decode('utf-8')), self._htmlparser
@@ -66,14 +69,22 @@ class Http(object):
             )
             resp = self._opener.open(req, timeout=30)
         except (URLError, HTTPError) as err:
-            print(err)
+            _logger.error(err)
             return None
         if xmlhttprequest:
             return json.loads(resp.read().decode('utf-8'))
         return etree.parse(StringIO(resp.read().decode('utf-8')), self._htmlparser)
 
     def download(self, url: str):
-        return urlopen(url).read()
+        try:
+            bindata = urlopen(url).read()
+        except (URLError, HTTPError) as err:
+            _logger.error(err)
+            bindata = None
+        return bindata
 
     def download64(self, url: str):
-        return base64.b64encode(self.download(url=url)).decode('utf-8')
+        bindata = self.download(url=url)
+        if bindata:
+            return base64.b64encode(bindata).decode('utf-8')
+        return bindata
