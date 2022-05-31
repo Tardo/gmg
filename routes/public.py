@@ -509,7 +509,7 @@ def set_timezone():
 
 def _get_chart_data_activity_7d(site_id):
     today = datetime.utcnow()
-    startday = (today - timedelta(days=6)).replace(minute=0, second=0)
+    startday = (today - timedelta(days=6)).replace(hour=0, minute=0, second=0)
     # Initial values
     chart_data = {'labels': [], 'values': {}}
     chart_data['labels'] = [
@@ -658,7 +658,7 @@ def _get_chart_data_activity_24h(site_id):
 
 def _get_chart_data_user_activity_7d(site_id, user_id):
     today = datetime.utcnow()
-    startday = (today - timedelta(days=6)).replace(minute=0, second=0)
+    startday = (today - timedelta(days=6)).replace(hour=0, minute=0, second=0)
     # Initial values
     chart_data = {'labels': [], 'values': {}}
     chart_data['labels'] = [
