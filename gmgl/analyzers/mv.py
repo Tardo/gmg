@@ -86,7 +86,7 @@ class MVHttp(Http):
 
 class MVAnalyzer(object):
     _PREV_PAGES = 2
-    _HOT_THREAD_COUNT = 20
+    _HOT_THREAD_COUNT = 80
 
     def __init__(self):
         self._site = RecordMetadata.ref('base_site_mediavida')
@@ -112,6 +112,7 @@ class MVAnalyzer(object):
         for _, athread in enumerate(athreads):
             print(f"Analyzing thread posts '{athread.id}'...")
             thread_url, aposts = self.analyze_posts(athread)
+            db.session.commit()
             print(f'Scan finished! Post imported: {len(aposts)}')
             print(f'Waiting {thread_requests_delay} seconds...')
             time.sleep(thread_requests_delay)
