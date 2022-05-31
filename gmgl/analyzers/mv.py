@@ -320,12 +320,16 @@ class MVAnalyzer(object):
                         )
                 else:
                     avatar_attachment = None
+                old_avatar = analyzer_user.avatar_ids[-1]
+                if avatar_attachment:
+                    analyzer_user.avatar_ids.append(avatar_attachment)
+                    db.session.flush()
                 AnalyzerWebEvent.createEvent(
                     'user_avatar_change',
                     {
                         'site_id': analyzer_thread.site_id,
                         'user_id': analyzer_user.id,
-                        'old_avatar_id': analyzer_user.avatar_ids[-1].id
+                        'old_avatar_id': old_avatar.id
                         if analyzer_user.avatar_ids
                         else None,
                         'new_avatar_id': avatar_attachment.id
@@ -333,8 +337,6 @@ class MVAnalyzer(object):
                         else None,
                     },
                 )
-                if avatar_attachment:
-                    analyzer_user.avatar_ids.append(avatar_attachment)
         # Get CT
         ct_element = css_xpath(post, 'div.post-meta span.ct')
         has_ct = len(ct_element) != 0
