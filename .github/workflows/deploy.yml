@@ -1,0 +1,50 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: [ "Testing" ]
+    branches: [ master ]
+    types: 
+      - completed
+  
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-20.04
+    environment: Hetzner
+    steps:
+      - uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - run: |
+          mkdir -p ~/.ssh/ && ssh-keyscan -H ${{ secrets.SERVER_IPV4 }} >> ~/.ssh/known_hosts
+          ssh root@${{ secrets.SERVER_IPV4 }} bash -c 'cd ${{ secrets.FLASKAPP_FOLDER }} && cd data/src && git pull --rebase origin master'
+      
+      - name: Get if has database schema changes
+        id: changed-db-schema
+        uses: tj-actions/changed-files@v22.1
+        with:
+          files: |
+            migrations
+
+      - name: Get if base data has changes
+        id: changed-base-data
+        uses: tj-actions/changed-files@v22.1
+        with:
+          files: |
+            data
+
+      - name: Hard Deploy - Detected database schema changes
+        if: steps.changed-db-schema.outputs.only_changed == 'true' || steps.changed-db-schema.outputs.any_deleted == 'true'
+        run: |
+          ssh root@${{ secrets.SERVER_IPV4 }} bash -c 'cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose stop flaskapp && docker-compose run --rm --entrypoint="" flaskapp bash -c 'inv_flask db upgrade && inv_flask gmg upgrade' && docker-compose up -d
+
+      - name: Hard Deploy - Detected base data changes
+        if: steps.changed-db-schema.outputs.only_changed == 'false' && steps.changed-db-schema.outputs.any_deleted == 'false' && (steps.changed-base-data.outputs.only_changed == 'true' || steps.changed-base-data.outputs.any_deleted == 'true')
+        run: |
+          ssh root@${{ secrets.SERVER_IPV4 }} bash -c 'cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose stop flaskapp && docker-compose run --rm --entrypoint="" flaskapp inv_flask gmg upgrade && docker-compose up -d
+
+      - name: Normal Deploy
+        if: steps.changed-db-schema.outputs.only_changed == 'false' && steps.changed-db-schema.outputs.any_deleted == 'false' && steps.changed-base-data.outputs.only_changed == 'false' && steps.changed-base-data.outputs.any_deleted == 'false'
+        run: |
+          ssh root@${{ secrets.SERVER_IPV4 }} bash -c 'cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose restart flaskapp

@@ -1,0 +1,72 @@
+name: Testing
+
+on: [ push, pull_request ]
+
+jobs:
+  project-test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.10" ]
+
+    services:
+      postgres:
+        image: postgres
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: gmg
+          POSTGRES_USER: gmg_test
+          POSTGRES_PASSWORD: gmg_test_pass
+          POSTGRES_HOST_AUTH_METHOD: trust
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      PIP_CACHE_DIR: "$GITHUB_WORKSPACE/.cache"
+      PYTHONDONTWRITEBYTECODE: 1
+      PYTHONUNBUFFERED: 1
+      DEBIAN_FRONTEND: noninteractive
+      FLASK_ENV: testing
+      NODE_ENV: testing
+      POETRY_NO_INTERACTION: 1
+      POETRY_NO_DEV: 1
+      GMG_DATABASE_URI: "postgresql+psycopg2://gmg_test:gmg_test_pass@localhost:5432/gmg"
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: |
+            .venv
+            .cache
+            .npm
+            node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Set up Node.js 18
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          npm ci --cache .npm --prefer-offline
+          npm install --global npm
+          npm install --global postcss postcss-cli rollup
+          poetry config virtualenvs.in-project true
+          poetry install
+          npm install
+      - name: Set up GMG testing mode
+        run: poetry run flask gmg install_test
+      - name: Test with pytest
+        run: poetry run npm run test:pytest

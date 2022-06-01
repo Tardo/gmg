@@ -1,4 +1,4 @@
-[![Gitlab Pipeline](https://gitlab.com/Tardo/gmg/badges/master/pipeline.svg)](https://gitlab.com/Tardo/gmg)
+![testing workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg) ![deploy workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
 
 # Give Me the Garbage
 
