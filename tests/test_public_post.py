@@ -58,7 +58,7 @@ def test_chart_data_activity_7d(client, records_loader):
             babel=True,
         )
         assert json_data['labels'][-1] == str_now
-        assert json_data['values']['medias'][-1] == 0
+        assert json_data['values']['medias'][-1] == 1
         assert json_data['values']['mentions'][-1] == 1
         assert json_data['values']['posts'][-1] == 1
         assert json_data['values']['posts'][-2] == 2
@@ -81,7 +81,7 @@ def test_chart_data_activity_24h(client, records_loader):
         startday = datetime.utcnow().replace(minute=0, second=0)
         str_now = f'{date_to_str(startday, hours=True, babel=True)} - {time_to_str(startday + timedelta(hours=1), babel=True)}'
         assert json_data['labels'][-1] == str_now
-        assert json_data['values']['medias'][-1] == 0
+        assert json_data['values']['medias'][-1] == 1
         assert json_data['values']['mentions'][-1] == 1
         assert json_data['values']['posts'][0] == 1
         assert json_data['values']['posts'][1] == 1
@@ -115,7 +115,7 @@ def test_chart_data_user_activity_7d(client, records_loader):
             babel=True,
         )
         assert json_data['labels'][-1] == str_now
-        assert json_data['values']['medias'][-1] == 0
+        assert json_data['values']['medias'][-1] == 1
         assert json_data['values']['mentions'][-1] == 1
         assert json_data['values']['posts'][-1] == 1
         assert json_data['values']['replies'][-1] == 0

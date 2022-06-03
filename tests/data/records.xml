@@ -51,8 +51,13 @@
         <field name="last_page_done" eval="0" />
     </record>
 
-    <record model="attachment" id="test_attachment_bin_avatar" import_group="test_bin_avatar">
+    <record model="attachment" id="test_attachment_bin_avatar_a" import_group="test_bin_avatar">
         <field name="data" eval="b'This is an avatar test... yes as text :D'"/>
+        <field name="mimetype">image/png</field>
+    </record>
+
+    <record model="attachment" id="test_attachment_bin_avatar_b" import_group="test_bin_avatar">
+        <field name="data" eval="b'Other dummy ..image?'"/>
         <field name="mimetype">image/png</field>
     </record>
 
@@ -94,7 +99,7 @@
         <field name="site_id" ref="base_site_test"/>
         <field name="thread_id" ref="test_thread_chart_data_a"/>
         <field name="author_id" ref="test_user_chart_data_b" />
-        <field name="date" eval="datetime.utcnow() - timedelta(days=1)" />
+        <field name="date" eval="(datetime.utcnow() - timedelta(days=1)).replace(minute=0)" />
         <field name="votes_good_count" eval="3" />
     </record>
     <record model="analyzer_post" id="test_post_chart_data_c" import_group="test_chart_data">

@@ -330,7 +330,7 @@ def user(username):
     post_threads = user and AnalyzerPost.getTopThreadsByUser(
         site_id, user.id, with_last_post=True
     )
-    web_events = (
+    web_events = user and (
         AnalyzerWebEvent.query.filter(
             AnalyzerWebEvent.site_id == site_id,
             or_(AnalyzerUser.id == user.id, AnalyzerWebEvent.user_id == user.id),

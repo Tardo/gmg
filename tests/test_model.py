@@ -9,6 +9,7 @@ from gmgl.sqlalchemy.models.analyzer import (
     AnalyzerPostComment,
     AnalyzerPostMedia,
     AnalyzerWebEvent,
+    WebEventType
 )
 from gmgl.utils import date_to_str, time_to_str
 
@@ -115,6 +116,58 @@ def test_analyzer_post_media(client, records_loader):
 
 def test_analyzer_web_event(client, records_loader):
     with client:
+        records_loader('test_chart_data')
+        records_loader('test_bin_avatar')
         site_id = RecordMetadata.ref('base_site_test').id
 
-        AnalyzerWebEvent.createEventUsersOnline(site_id, 20)
+        event = AnalyzerWebEvent.createEvent("online_users", {
+            'site_id': site_id,
+            'count': 35,
+        })
+        assert event is not None
+
+        event = AnalyzerWebEvent.createEvent("post_reply", {
+            'site_id': site_id,
+            'origin_post_id': RecordMetadata.ref('test_post_chart_data_b').id,
+            'post_id': RecordMetadata.ref('test_post_chart_data_a').id,
+        })
+        assert event is not None
+
+        event = AnalyzerWebEvent.createEvent("post_mention", {
+            'site_id': site_id,
+            'origin_post_id': RecordMetadata.ref('test_post_chart_data_a').id,
+            'user_id': RecordMetadata.ref('test_user_chart_data_a').id,
+        })
+        assert event is not None
+
+        event = AnalyzerWebEvent.createEvent("user_avatar_change", {
+            'site_id': site_id,
+            'user_id': RecordMetadata.ref('test_user_chart_data_a').id,
+            'old_avatar_id': RecordMetadata.ref('test_attachment_bin_avatar_a').id,
+            'new_avatar_id': RecordMetadata.ref('test_attachment_bin_avatar_b').id,
+        })
+        assert event is not None
+
+        event = AnalyzerWebEvent.createEvent("user_banned", {
+            'site_id': site_id,
+            'user_id': RecordMetadata.ref('test_user_chart_data_a').id,
+            'status': True,
+        })
+        assert event is not None
+
+        event = AnalyzerWebEvent.createEvent("user_deleted", {
+            'site_id': site_id,
+            'user_id': RecordMetadata.ref('test_user_chart_data_a').id,
+            'status': True,
+        })
+        assert event is not None
+
+        event = AnalyzerWebEvent.createEvent("hot_thread", {
+            'site_id': site_id,
+            'thread_id': RecordMetadata.ref('test_thread_chart_data_a').id,
+            'diff_count': 95,
+        })
+        assert event is not None
+
+        events = AnalyzerWebEvent.query.filter_by(site_id=site_id).all()
+        assert len(events) == 7

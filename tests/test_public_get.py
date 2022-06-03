@@ -79,7 +79,7 @@ def test_bin_avatar(client, records_loader):
         response = client.get('/bin/avatar/0')
         assert response.status_code == 302
         assert response.headers['Location'] == '/static/img/default_avatar.png'
-        attachment_obj = RecordMetadata.ref('test_attachment_bin_avatar')
+        attachment_obj = RecordMetadata.ref('test_attachment_bin_avatar_a')
         response = client.get(f'/bin/avatar/{attachment_obj.hash_ref}')
         assert response.status_code == 200
         assert b'This is an avatar test' in response.data
