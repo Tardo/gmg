@@ -977,6 +977,17 @@ python-versions = ">=3.6"
 catalogue = ">=2.0.3,<2.1.0"
 
 [[package]]
+name = "supervisor"
+version = "4.2.4"
+description = "A system for controlling process state under UNIX"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+testing = ["pytest", "pytest-cov"]
+
+[[package]]
 name = "thinc"
 version = "8.0.16"
 description = "A refreshing functional take on deep learning, compatible with your favorite libraries"
@@ -1264,7 +1275,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "6bfbd90d9e5112f26196b5f4f41ff6206d5b6485b7df5ca954cf333e96920252"
+content-hash = "5af7a7f15bf4e8599df50e7ac430e5c607a9176b9496dd70f923d24db34c054a"
 
 [metadata.files]
 alembic = [
@@ -2265,6 +2276,10 @@ srsly = [
     {file = "srsly-2.4.3-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d1d13dc2133d5a83d30774793adb2c3fd9be905da339e2d54e2c79d55248c1a5"},
     {file = "srsly-2.4.3-cp39-cp39-win_amd64.whl", hash = "sha256:fb08416fd6ef04c51fdeefd6d28592b64563b2853243c571a9b0d67403b5be7f"},
     {file = "srsly-2.4.3.tar.gz", hash = "sha256:dbe91f6dd4aea9e819493628356dc715bd9c606486297bb7ca5748e6e003841c"},
+]
+supervisor = [
+    {file = "supervisor-4.2.4-py2.py3-none-any.whl", hash = "sha256:bbae57abf74e078fe0ecc9f30068b6da41b840546e233ef1e659a12e4c875af6"},
+    {file = "supervisor-4.2.4.tar.gz", hash = "sha256:40dc582ce1eec631c3df79420b187a6da276bbd68a4ec0a8f1f123ea616b97a2"},
 ]
 thinc = [
     {file = "thinc-8.0.16-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:2a57e163205c73df8b0507fc74e06b34b74827832541c1d41efc1975b6fcb818"},

@@ -2,7 +2,9 @@
   "scripts": {
     "clean:static_caches": "rm -r ./static/.webassets-cache; rm -r ./static/dist",
     "srv:dev": "export FLASK_ENV=develop && export NODE_ENV=develop && python run.py",
-    "srv:prod": "export FLASK_ENV=production && export NODE_ENV=production && gunicorn --worker-tmp-dir . --timeout 120 -k gevent --workers=3 --worker-connections 1000 --preload run:app",
+    "srv:prod": "export FLASK_ENV=production && export NODE_ENV=production && supervisord",
+    "srv:prod:kill": "kill -9 `cat /tmp/gmg_supervisord.pid` && kill -9 `cat /tmp/gmg_gunicorn.pid`",
+    "srv:prod:restart": "kill -HUP `cat /tmp/gmg_gunicorn.pid`",
     "test:pytest": "pytest",
     "test:coverage": "coverage run -m pytest && coverage report",
     "upd:translations": "./update_l10n.sh",
