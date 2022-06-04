@@ -38,17 +38,16 @@ jobs:
           files: |
             data
 
-      - name: Hard Deploy - Detected database schema changes
+      - name: Detected database schema changes
         if: steps.changed-db-schema.outputs.only_changed == 'true' || steps.changed-db-schema.outputs.any_deleted == 'true'
         run: |
-          ssh root@${{ secrets.SERVER_IPV4 }} "cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose stop flaskapp && docker-compose run --rm --entrypoint='' flaskapp bash -c 'inv_flask db upgrade && inv_flask gmg upgrade' && docker-compose up -d"
+          ssh root@${{ secrets.SERVER_IPV4 }} "cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose run --rm --entrypoint='' flaskapp bash -c 'inv_flask db upgrade && inv_flask gmg upgrade'"
 
-      - name: Hard Deploy - Detected base data changes
-        if: steps.changed-db-schema.outputs.only_changed == 'false' && steps.changed-db-schema.outputs.any_deleted == 'false' && (steps.changed-base-data.outputs.only_changed == 'true' || steps.changed-base-data.outputs.any_deleted == 'true')
+      - name: Detected base data changes
+        if: steps.changed-base-data.outputs.only_changed == 'true' || steps.changed-base-data.outputs.any_deleted == 'true'
         run: |
-          ssh root@${{ secrets.SERVER_IPV4 }} "cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose stop flaskapp && docker-compose run --rm --entrypoint='' flaskapp inv_flask gmg upgrade && docker-compose up -d"
+          ssh root@${{ secrets.SERVER_IPV4 }} "cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose run --rm --entrypoint='' flaskapp inv_flask gmg upgrade"
 
-      - name: Normal Deploy
-        if: steps.changed-db-schema.outputs.only_changed == 'false' && steps.changed-db-schema.outputs.any_deleted == 'false' && steps.changed-base-data.outputs.only_changed == 'false' && steps.changed-base-data.outputs.any_deleted == 'false'
+      - name: Restart
         run: |
-          ssh root@${{ secrets.SERVER_IPV4 }} "cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose restart flaskapp"
+          ssh root@${{ secrets.SERVER_IPV4 }} "cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose exec flaskapp bash -c 'kill -HUP `cat /tmp/gmg_gunicorn.pid`'"

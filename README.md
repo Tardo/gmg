@@ -1,5 +1,3 @@
-![testing workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg) ![deploy workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
-
 # Give Me the Garbage
 
 _Web application to analyze the content of public forums_

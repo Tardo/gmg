@@ -112,6 +112,8 @@ def initialize_once(app):
                 igroup='base',
             )
 
+        spacy_nlp.init_app(app)
+
         # APScheduler
         scheduler.init_app(app)
         scheduler.remove_all_jobs()
@@ -163,8 +165,6 @@ def create_app(gmgconf):
     db.session.execute("SET TIME ZONE 'UTC'")
 
     initialize_once(app)
-
-    spacy_nlp.init_app(app)
 
     @babel.localeselector
     def get_locale():
