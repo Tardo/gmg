@@ -670,9 +670,9 @@ class AnalyzerWebEvent(AnalyzerMixin, BaseModel):
     type_id = db.Column(
         db.Integer, db.ForeignKey(WebEventType.id), nullable=False, index=True
     )
-    origin_post_id = db.Column(db.Integer, db.ForeignKey(AnalyzerPost.id))
+    origin_post_id = db.Column(db.Integer, db.ForeignKey(AnalyzerPost.id), index=True)
     post_id = db.Column(db.Integer, db.ForeignKey(AnalyzerPost.id))
-    user_id = db.Column(db.Integer, db.ForeignKey(AnalyzerUser.id))
+    user_id = db.Column(db.Integer, db.ForeignKey(AnalyzerUser.id), index=True)
     thread_id = db.Column(db.Integer, db.ForeignKey(AnalyzerThread.id))
     user_count = db.Column(db.Integer)
     old_avatar_id = db.Column(db.Integer, db.ForeignKey('attachment.id'))
