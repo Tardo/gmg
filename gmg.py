@@ -33,7 +33,7 @@ from gmgl.json_encoder import GMGJSONEncoder
 from gmgl.sqlalchemy.xml_loader import load_xml_records
 from gmgl.sqlalchemy.database import db, db_get_active_user, db_get_engine_name
 from gmgl.sqlalchemy.models import get_db_env
-from gmgl.sqlalchemy.models.internal import Site
+from gmgl.sqlalchemy.models.internal import Site, AppWebConfig
 from gmgl.utils import (
     get_session_timezone,
     is_session_expired,
@@ -95,23 +95,29 @@ def _print_app_info(app):
     _logger.info(f' * {len(db_env)} models loaded')
     _logger.info(f' * {routes_count} routes defined')
 
+def _auto_install():
+    db.create_all()
+    processed_ids = load_xml_records(
+        os.path.join(Path(__file__).resolve().parent, 'data', 'records.xml'),
+        igroup='base',
+    )
+    if processed_ids:
+        AppWebConfig.set_param('version', current_app.config['VERSION'])
+        db.session.commit()
 
 def initialize_once(app):
     f = open('gmg.lock', 'wb')
     try:
         fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
 
-        # Check if need install
+        # Auto-Install base data
         has_base_tables = bool(db.session.execute(
             "SELECT count(*) FROM pg_catalog.pg_tables WHERE tablename = 'app_web_config'"
         ).first()[0])
         if not has_base_tables:
-            db.create_all()
-            load_xml_records(
-                os.path.join(Path(__file__).resolve().parent, 'data', 'records.xml'),
-                igroup='base',
-            )
+            _auto_install()
 
+        # spaCy NLP
         spacy_nlp.init_app(app)
 
         # APScheduler

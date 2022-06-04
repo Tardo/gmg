@@ -43,13 +43,13 @@ jobs:
       - name: Detected database schema changes
         if: steps.changed-db-schema.outputs.only_changed == 'true' || steps.changed-db-schema.outputs.any_deleted == 'true'
         run: |
-          ssh root@${{ secrets.SERVER_IPV4 }} "cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose run --rm --entrypoint='' flaskapp inv_flask db upgrade"
+          ssh root@${{ secrets.SERVER_IPV4 }} "cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose run -ti --rm --entrypoint='' flaskapp inv_flask db upgrade"
 
       - name: Detected base data changes
         if: steps.changed-base-data.outputs.only_changed == 'true' || steps.changed-base-data.outputs.any_deleted == 'true'
         run: |
-          ssh root@${{ secrets.SERVER_IPV4 }} "cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose run --rm --entrypoint='' flaskapp inv_flask gmg upgrade"
+          ssh root@${{ secrets.SERVER_IPV4 }} "cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose run -ti --rm --entrypoint='' flaskapp inv_flask gmg upgrade"
 
       - name: Restart workers
         run: |
-          ssh root@${{ secrets.SERVER_IPV4 }} "cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose exec flaskapp restart_workers"
+          ssh root@${{ secrets.SERVER_IPV4 }} "cd ${{ secrets.FLASKAPP_FOLDER }} && docker-compose exec -ti flaskapp restart_workers"
