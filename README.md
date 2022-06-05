@@ -88,7 +88,3 @@ poetry run flask db upgrade
 
 - Get the exception `UnkownTimeZoneError`: To fix this configure the time zone
   of your system: `dpkg-reconfigure tzdata`
-
-### Limits
-
-- The default maximum size of upload is 16MB per mod (can change it in gmg.conf)

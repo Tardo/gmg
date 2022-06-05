@@ -67,6 +67,6 @@ jobs:
           poetry install
           npm install
       - name: Set up GMG testing mode
-        run: poetry run flask gmg install_test
+        run: poetry run flask gmg init
       - name: Test with pytest
         run: poetry run npm run test:pytest

@@ -8,7 +8,8 @@
     "test:pytest": "pytest",
     "test:coverage": "coverage run -m pytest && coverage report",
     "upd:translations": "./update_l10n.sh",
-    "upd:spacy": "python -m spacy download es_dep_news_trf"
+    "upd:spacy": "python -m spacy download es_dep_news_trf",
+    "upd:spacy:models": "python -m spacy convert ./train.gold.conll ./gmgl/nlp/trainers/insults_corpus.py"
   },
   "dependencies": {
     "@rollup/plugin-alias": "^3.1.9",

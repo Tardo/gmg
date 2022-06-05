@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gmg"
-version = "0.3.2"
+version = "0.4.0"
 description = "Public forum scrapper"
 authors = ["Alexandre D. Díaz <dev@redneboa.es>"]
 include = [
@@ -13,6 +13,7 @@ include = [
     "tools/*.py",
     "translations/**/*.mo",
     "translations/**/*.po",
+    "node_modules/",
     "babel.cfg",
     "cli.py",
     "gmg.py",
@@ -26,6 +27,7 @@ include = [
     "run.py",
     "tailwind.config.js",
     "uwsgi.ini",
+    "supervisord.conf",
 ]
 
 [tool.poetry.dependencies]
@@ -48,7 +50,7 @@ html2text = "^2020.1.16"
 webassets-rollup = "^1.0.0"
 PyYAML = "^5.4.1"
 requests = "^2.27.1"
-Pillow = "^8.4.0"
+Pillow = "^9.0.1"
 lxml = "^4.7.1"
 psycopg2-binary = "^2.9.3"
 python-dotenv = "^0.20.0"
